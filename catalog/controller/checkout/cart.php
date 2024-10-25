@@ -258,8 +258,14 @@ class Cart extends \Opencart\System\Engine\Controller {
 		$this->load->model('catalog/product');
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
+		$redirect = true;
 
 		if ($product_info) {
+			if ($product_info['quantity'] <= 0) {
+				$json['warning'] = sprintf($this->language->get('error_not_available'), $product_info['name']);
+				$redirect = false;
+			}
+
 			// If variant get master product
 			if ($product_info['master_id']) {
 				$product_id = $product_info['master_id'];
@@ -317,7 +323,9 @@ class Cart extends \Opencart\System\Engine\Controller {
 			unset($this->session->data['payment_method']);
 			unset($this->session->data['payment_methods']);
 		} else {
-			$json['redirect'] = $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_id, true);
+			if ($redirect) {
+				$json['redirect'] = $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product_id, true);
+			}
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
