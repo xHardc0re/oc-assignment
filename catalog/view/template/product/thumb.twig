@@ -30,7 +30,11 @@
     </div>
     <form method="post" data-oc-toggle="ajax" data-oc-load="{{ cart }}" data-oc-target="#header-cart">
       <div class="button-group">
+        {% if is_available %}
         <button type="submit" formaction="{{ add_to_cart }}" data-bs-toggle="tooltip" title="{{ button_cart }}"><i class="fa-solid fa-shopping-cart"></i></button>
+        {% else %}
+        <button type="button" data-bs-toggle="modal" data-bs-target="#availabilityModal" data-product-id="{{ product_id }}" title="{{ button_inform }}"><i class="fa-solid fa-info"></i></button>
+        {% endif %}
         <button type="submit" formaction="{{ add_to_wishlist }}" data-bs-toggle="tooltip" title="{{ button_wishlist }}"><i class="fa-solid fa-heart"></i></button>
         <button type="submit" formaction="{{ add_to_compare }}" data-bs-toggle="tooltip" title="{{ button_compare }}"><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
       </div>

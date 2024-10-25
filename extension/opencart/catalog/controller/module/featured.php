@@ -66,6 +66,7 @@ class Featured extends \Opencart\System\Engine\Controller {
 					'special'     => $special,
 					'tax'         => $tax,
 					'minimum'     => $product['minimum'] > 0 ? $product['minimum'] : 1,
+					'quantity'    => $product['quantity'],
 					'rating'      => (int)$product['rating'],
 					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $product['product_id'])
 				];
@@ -75,6 +76,7 @@ class Featured extends \Opencart\System\Engine\Controller {
 		}
 
 		if ($data['products']) {
+			$data['availability_modal'] = $this->load->controller('common/availability_modal');
 			return $this->load->view('extension/opencart/module/featured', $data);
 		} else {
 			return '';

@@ -58,12 +58,15 @@ class BestSeller extends \Opencart\System\Engine\Controller {
 					'special'     => $special,
 					'tax'         => $tax,
 					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
+					'quantity'    => $result['quantity'],
 					'rating'      => $result['rating'],
 					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'])
 				];
 
 				$data['products'][] = $this->load->controller('product/thumb', $product_data);
 			}
+
+			$data['availability_modal'] = $this->load->controller('common/availability_modal');
 
             return $this->load->view('extension/opencart/module/bestseller', $data);
 		} else {

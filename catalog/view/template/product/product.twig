@@ -240,7 +240,11 @@
                   <input type="hidden" name="product_id" value="{{ product_id }}" id="input-product-id"/>
                   <div id="error-quantity" class="form-text"></div>
                   <br/>
+                  {% if is_available %}
                   <button type="submit" id="button-cart" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
+                  {% else %}
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#availabilityModal" data-product-id="{{ product_id }}">{{ button_inform }}</button>
+                  {% endif %}
                 </div>
 
                 {% if minimum > 1 %}
@@ -361,6 +365,10 @@ $('#form-product').on('submit', function(e) {
             $('#form-product').find('.is-invalid').removeClass('is-invalid');
             $('#form-product').find('.invalid-feedback').removeClass('d-block');
 
+            if (json['warning']) {
+                $('#alert').prepend('<div class="alert alert-warning alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+            }
+
             if (json['error']) {
                 for (key in json['error']) {
                     $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
@@ -390,4 +398,5 @@ $(document).ready(function() {
     });
 });
 //--></script>
+{{ availability_modal }}
 {{ footer }}

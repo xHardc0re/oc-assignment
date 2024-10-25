@@ -19,6 +19,7 @@ class Thumb extends \Opencart\System\Engine\Controller {
 		$data['add_to_cart'] = $this->url->link('checkout/cart.add', 'language=' . $this->config->get('config_language'));
 		$data['add_to_wishlist'] = $this->url->link('account/wishlist.add', 'language=' . $this->config->get('config_language'));
 		$data['add_to_compare'] = $this->url->link('product/compare.add', 'language=' . $this->config->get('config_language'));
+		$data['is_available'] = $data['quantity'] > 0 ? true: false;
 
 		$data['review_status'] = (int)$this->config->get('config_review_status');
 

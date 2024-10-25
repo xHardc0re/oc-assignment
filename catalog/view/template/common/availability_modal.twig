@@ -1,0 +1,32 @@
+<div class="modal fade" id="availabilityModal" tabindex="-1" aria-labelledby="availabilityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="availabilityModalLabel">{{ text_heading }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="availabilityForm" method="post" data-oc-toggle="ajax" data-oc-clear-form="#availabilityForm" data-oc-close-modal="#availabilityModal">
+            <input type="hidden" id="product_id" name="product_id" value="">
+
+            <div class="mb-3">
+              <label for="email" class="form-label">{{ entry_email }}</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+              <div id="error-email" class="invalid-feedback"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" formaction="{{ inform }}">{{ button_inform }}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+    const availabilityModal = document.getElementById('availabilityModal');
+    availabilityModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // Button that triggered the modal
+        const productId = button.getAttribute('data-product-id'); // Extract product ID from the button
+        const productInput = availabilityModal.querySelector('#product_id'); // Hidden input for product_id
+        productInput.value = productId; // Set the product ID value
+    });
+</script>

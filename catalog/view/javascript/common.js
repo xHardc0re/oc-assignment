@@ -341,9 +341,14 @@ $(document).on('submit', 'form', function (e) {
                 }
 
                 if (typeof json['error'] == 'object') {
-                    if (json['error']['warning']) {
-                        $('#alert').prepend('<dirv class="alert alert-danger alert-dismissible"><i class="fa-solid fa-circle-exclamation"></i> ' + json['error']['warning'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></dirv>');
-                    }
+                    const alertIcons = '<i class="fa-solid fa-circle-exclamation"></i>';
+                    const closeButton = ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+
+                    ['warning', 'product', 'email', 'in_queue'].forEach(errorType => {
+                        if (json['error'][errorType]) {
+                            $('#alert').prepend(`<div class="alert alert-danger alert-dismissible">${alertIcons} ${json['error'][errorType]}${closeButton}</div>`);
+                        }
+                    });
 
                     for (key in json['error']) {
                         $('#input-' + key.replaceAll('_', '-')).addClass('is-invalid').find('.form-control, .form-select, .form-check-input, .form-check-label').addClass('is-invalid');
@@ -357,6 +362,17 @@ $(document).on('submit', 'form', function (e) {
                     // Refresh
                     var url = $(form).attr('data-oc-load');
                     var target = $(form).attr('data-oc-target');
+                    var clear_form = $(form).attr('data-oc-clear-form');
+                    var close_modal = $(form).attr('data-oc-close-modal');
+
+                    if (clear_form) {
+                        $(clear_form).trigger('reset');
+                    }
+
+                    if (close_modal) {
+                        const modal = bootstrap.Modal.getInstance($(close_modal)[0]);
+                        modal.hide();
+                    }
 
                     if (url !== undefined && target !== undefined) {
                         $(target).load(url);

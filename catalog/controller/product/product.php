@@ -263,6 +263,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['reward'] = $product_info['reward'];
 			$data['points'] = $product_info['points'];
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
+			$data['is_available'] = true;
 
 			if ($product_info['quantity'] <= 0) {
 				$this->load->model('localisation/stock_status');
@@ -274,6 +275,8 @@ class Product extends \Opencart\System\Engine\Controller {
 				} else {
 					$data['stock'] = '';
 				}
+
+				$data['is_available'] = false;
 			} elseif ($this->config->get('config_stock_display')) {
 				$data['stock'] = $product_info['quantity'];
 			} else {
@@ -481,6 +484,7 @@ class Product extends \Opencart\System\Engine\Controller {
 					'special'     => $special,
 					'tax'         => $tax,
 					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
+					'quantity'    => $result['quantity'],
 					'rating'      => $result['rating'],
 					'href'        => $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&product_id=' . $result['product_id'])
 				];
@@ -511,6 +515,7 @@ class Product extends \Opencart\System\Engine\Controller {
 			$data['column_right'] = $this->load->controller('common/column_right');
 			$data['content_top'] = $this->load->controller('common/content_top');
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
+			$data['availability_modal'] = $this->load->controller('common/availability_modal');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
 
