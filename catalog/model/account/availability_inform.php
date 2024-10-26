@@ -64,4 +64,12 @@ class AvailabilityInform extends \Opencart\System\Engine\Model {
 	public function removeFromQueue(array $availability_inform_queue_ids): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "availability_inform_queue` WHERE `availability_inform_queue_id` IN (" . implode(',', $availability_inform_queue_ids) . ")");
 	}
+
+	/**
+	 *
+	 * @return void
+	 */
+	public function queueCleanup(): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "availability_inform_queue` WHERE `product_id` NOT IN (SELECT `product_id` FROM `" . DB_PREFIX . "product`)");
+	}
 }
