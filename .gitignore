@@ -1,5 +1,5 @@
 /config.php
-admin/config.php
+administration/config.php
 /.htaccess
 .DS_STORE
 
@@ -30,6 +30,6 @@ image/cache/*
 image/catalog/*
 !image/catalog/index.html
 
-admin/view/stylesheet/bootstrap.css
+administration/view/stylesheet/bootstrap.css
 
 phpstan.neon
