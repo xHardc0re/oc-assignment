@@ -20,10 +20,16 @@ This document details the implementation of a "Product Availability Notification
 - When a product’s stock level is zero (out of stock), the "Add to Cart" button is replaced by an "Inform Me" button.
 - The button is conditionally rendered based on the product’s stock status.
 
+**Frontend Display Example:**
+![Out-of-Stock Frontend Display](./screenshot/front.png)
+
 ### 2. Customer Subscription: Collecting Email and Product ID
 
 - Upon clicking the "Inform Me" button, a modal form opens, prompting the customer to enter their email.
 - The form submission sends the email and product ID to a controller function that validates and stores it.
+
+**Email Example:**
+![Email Example](./screenshot/email.png)
 
 ### 3. Server-Side Validation
 
@@ -34,6 +40,9 @@ This document details the implementation of a "Product Availability Notification
 
 - **Cron Mechanism:** The cron job processes a batch of emails at regular intervals, which can be configured via the server's cron tab or executed via OpenCart’s admin panel.
 - **Balanced Queue Processing:** Each run of the cron job processes a limited number of emails to prevent server overload and spamming.
+
+**Daemon Diagram:**
+![Daemon Diagram](./screenshot/diagram.png)
 
 **Setting up the Cron Job:**
 You can either set up the cron job through the server or via OpenCart’s admin panel:
@@ -47,6 +56,9 @@ You can either set up the cron job through the server or via OpenCart’s admin 
 
 2. **OpenCart Admin Panel:**
    - Open the OpenCart admin panel, navigate to **Extensions > Cron Jobs**, and schedule the `cron/cron` route to be triggered periodically.
+
+**Cron Section in OpenCart:**
+![Cron Section in OpenCart](./screenshot/cron.png)
 
 ---
 
