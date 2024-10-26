@@ -45,7 +45,7 @@ class AvailabilityInform extends \Opencart\System\Engine\Model {
 		}
 
 		if (!empty($data['is_available'])) {
-			$sql .= " AND `p`.`quantity` >= 0 AND `p`.`status` = '1' AND `p`.`date_available` <= NOW()";
+			$sql .= " AND `p`.`quantity` > 0 AND `p`.`status` = '1' AND `p`.`date_available` <= NOW()";
 		}
 
 		$limit = (int)($data['limit'] ?? 20);
